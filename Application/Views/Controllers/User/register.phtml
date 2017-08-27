@@ -1,0 +1,26 @@
+<div class="blog-post">
+    <h2 class="blog-post-title">Register User</h2>
+    <hr />
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?=$e?>
+        </div>
+    <?php endforeach; ?>
+    <form method='post'>
+        <div class="form-group">
+            <label for="title">Email</label>
+            <input value="<?=$helpers->foundInputValue('mail')?>" type="mail" name="mail" class="form-control" id="mail"  placeholder="Enter the email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name='password' id="password" placeholder="Enter the password" />
+        </div>
+        <div class="form-group">
+            <label for="passwordc">Password confirm</label>
+            <input type="password" class="form-control" name='passwordc' id="passwordc" placeholder="Enter the password confirmation" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="<?=LINK_WEB?>article" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
