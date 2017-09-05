@@ -48,7 +48,7 @@ class User extends Controller {
                 header("location: ".LINK_WEB);
                 exit();
             } else {
-                array_push($error, "mail or password not valid");
+                array_push($error, "email or password not valid");
             }
 
         }

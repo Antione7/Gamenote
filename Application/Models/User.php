@@ -9,13 +9,24 @@ class User extends Model {
     protected $table = 'users';
     protected $primary = 'id';
     protected $structure = array(
-        "mail" => array(
-            "type" => "mail"
+        "email" => array(
+            "type" => "email"
         ),
         "password" => array(
             "type" => "string",
             "minLength" => "5",
             "maxLength" => "15"
+        ),
+        "pseudo" => array(
+            "type" => "string",
+            "minLength" => "3",
+            "maxLength" => "15"
+        ),
+        "lastName" => array(
+            "type" => "string"
+        ),
+        "firstName" => array(
+            "type" => "string"
         )
     );
 
@@ -24,7 +35,7 @@ class User extends Model {
     }
 
     public function findForAuth($data) {
-        $sql = $this->database->prepare("SELECT `id`, `mail`, `update` FROM `{$this->table}` WHERE `mail`=:mail");
+        $sql = $this->database->prepare("SELECT `id`, `email`, `update` FROM `{$this->table}` WHERE `email`=:email");
         $sql->execute($data);
         $result = $sql->fetchAll();
 

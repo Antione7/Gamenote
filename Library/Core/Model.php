@@ -62,7 +62,7 @@ abstract class Model {
                     if ($rule === 'max' && $value > $info) {
                         array_push($error, "Maximum value is: '<strong>$info</strong>' in field: '<strong>$key</strong>'");
                     }
-                    if ($rule === 'type' && $info === 'mail' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    if ($rule === 'type' && $info === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         array_push($error, "Email is not valid");
                     }
                 }
@@ -100,6 +100,7 @@ abstract class Model {
         $listValues = ":" . implode(',:', array_keys($data));
 
         $sql = $this->database->prepare("INSERT INTO `{$this->table}` ({$listFields}) VALUES ({$listValues})");
+        var_dump($sql);
         return $sql->execute($data);
     }
 
