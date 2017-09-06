@@ -11,7 +11,7 @@ class Helpers {
         return isset($_POST[$name])?$_POST[$name]:'';
     }
 
-    public function isAuthentificated(){
+    public function isAuthenticated(){
         return isset($_SESSION['user']);
     }
 

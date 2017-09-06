@@ -3,6 +3,7 @@
 namespace Application\Models;
 
 use \Library\Core\Model;
+use \PDO;
 
 class User extends Model {
 
@@ -35,8 +36,9 @@ class User extends Model {
     }
 
     public function findForAuth($data) {
-        $sql = $this->database->prepare("SELECT `id`, `email`, `update` FROM `{$this->table}` WHERE `email`=:email");
-        $sql->execute($data);
+        $sql = $this->database->prepare("SELECT `id`, `email`, `updated`, `password` FROM `{$this->table}` WHERE `email`=:email");
+        $sql->bindParam(':email', $data['email'], PDO::PARAM_STR);
+        $sql->execute();
         $result = $sql->fetchAll();
 
         if (count($result) === 1) {
