@@ -32,8 +32,4 @@ class Index extends Controller {
 
         $this->setDataView(array("errors"=>$error));
     }
-
-    public function testAction(){
-
-    }
 }

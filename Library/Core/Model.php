@@ -91,7 +91,7 @@ abstract class Model {
      *      'field3' => 'field1Value'
      * )
      */
-    public function insert(Array $data) {
+    public function insert(Array $data): int {
 
         // `field1`,`field2`,`field3`
         $listFields = "`" . implode('`,`', array_keys($data)) . "`";
@@ -100,8 +100,12 @@ abstract class Model {
         $listValues = ":" . implode(',:', array_keys($data));
 
         $sql = $this->database->prepare("INSERT INTO `{$this->table}` ({$listFields}) VALUES ({$listValues})");
-        var_dump($sql);
-        return $sql->execute($data);
+        $result = $sql->execute($data);
+
+        if ($result) {
+            return $this->database->lastInsertId();
+        }
+        return 0;
     }
 
     public function updateByPrimary(Array $data) {

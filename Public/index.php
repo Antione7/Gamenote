@@ -19,7 +19,7 @@
 
     $router = \Library\Core\Router::getInstance();
     $router::setProtectedRoutes(array(
-//        "article/create",
+//        "game/create",
     ));
     $router::dispatchPage($_GET['p']);
 

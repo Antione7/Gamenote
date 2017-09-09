@@ -47,5 +47,10 @@ class User extends Model {
 
         return false;
     }
-
+    
+    public function attributeRole(int $id): bool{
+        $sql = $this->database->prepare("INSERT INTO roleattribution (`id_users`,`id_roles`) VALUES (:id,1)");
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        return $sql->execute();
+    }
 }

@@ -97,7 +97,7 @@ class Router {
                 $controller = self::getControllerName('error');
             }
         }
-
+        
         if(!self::isValid($url)){
             $controller = self::getControllerName('error');
             $action     = self::getActionName('forbidden');
