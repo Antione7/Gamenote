@@ -18,28 +18,40 @@ class Game extends Controller {
         $error = $this->mg->getErrorData($_POST);
 
         if (!empty($_POST) && empty($error)) {
-            $id_genre = $_POST['genre'];
-            unset($_POST['genre']);
-            $id_games = $this->mg->insert($this->mg->cleanData($_POST));
-            if (is_int($id_games) && is_int($id_genre)) {
-                $data = array(
-                    "id_genre" => $id_genre,
-                    "id_games" => $id_games
-                );
-                if ($this->mg->attributeGenre($id)) {
-                    header("location: " . LINK_WEB);
-                    exit();
+            $genres;
+            foreach ($_POST['genre'] as $genre) {
+                if (!is_array($genre) && intval($genre) > 0) {
+                    $genres[] = intval($genre);
                 }
-            } else {
-                array_push($error, "Email already exists");
+            }
+            unset($_POST['genre']);
+            $_POST['id_platforms'] = is_array($_POST['id_platforms']) ? 0 : intval($_POST['id_platforms']);
+            if ($_POST['id_platforms'] === 0) {
+                array_push($error, "An error occurs");
+            }
+
+            if (empty($error)) {
+                $id_games = $this->mg->insert($this->mg->cleanData($_POST));
+                if ($id_games > 0) {
+                    if ($this->mg->attributeGenre($id_games, $genres)) {
+                        header("location: " . LINK_WEB);
+                        exit();
+                    } else {
+                        array_push($error, "An error occurs");
+                    }
+                } else {
+                    array_push($error, "An error occurs");
+                }
             }
         }
 
         $genres = $this->mg->getGenreList();
+        $platforms = $this->mg->getPlatformList();
 
         $this->setDataView(array(
             "errors" => $error,
-            "genres" => $genres
+            "genres" => $genres,
+            "platforms" => $platforms
         ));
     }
 

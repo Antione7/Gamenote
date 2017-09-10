@@ -101,7 +101,7 @@ abstract class Model {
 
         $sql = $this->database->prepare("INSERT INTO `{$this->table}` ({$listFields}) VALUES ({$listValues})");
         $result = $sql->execute($data);
-
+        var_dump($sql);
         if ($result) {
             return $this->database->lastInsertId();
         }
