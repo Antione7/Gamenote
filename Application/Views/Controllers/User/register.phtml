@@ -9,28 +9,28 @@
     <div class="row">
         <form method='post' class="col col-sm-6 offset-sm-3">
             <div class="form-group">
-                <label for="title">Pseudo</label>
+                <label for="pseudo">Pseudo</label>
                 <input value="<?= $helpers->foundInputValue('pseudo') ?>" type="text" name="pseudo" class="form-control" id="pseudo"  placeholder="Enter your pseudo" required>
             </div>
             <div class="form-group">
-                <label for="title">Email</label>
-                <input value="<?= $helpers->foundInputValue('email') ?>" type="email" name="email" class="form-control" id="email"  placeholder="Enter the email" required>
+                <label for="email">Email</label>
+                <input value="<?= $helpers->foundInputValue('email') ?>" type="email" name="email" class="form-control" id="email"  placeholder="Enter your email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name='password' id="password" placeholder="Enter the password" required>
+                <input type="password" class="form-control" name='password' id="password" placeholder="Enter your password" required>
             </div>
             <div class="form-group">
                 <label for="passwordc">Password confirm</label>
-                <input type="password" class="form-control" name='passwordc' id="passwordc" placeholder="Enter the password confirmation" required>
+                <input type="password" class="form-control" name='passwordc' id="passwordc" placeholder="Confirm your password" required>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name</label>
-                <input type="lastName" class="form-control" name='lastName' id="lastName" placeholder="Enter your last name">
+                <input value="<?= $helpers->foundInputValue('lastName') ?>" type="lastName" class="form-control" name='lastName' id="lastName" placeholder="Enter your last name">
             </div>
             <div class="form-group">
                 <label for="firstName">First name</label>
-                <input type="firstName" class="form-control" name='firstName' id="firstName" placeholder="Enter your first name">
+                <input value="<?= $helpers->foundInputValue('firstName') ?>" type="firstName" class="form-control" name='firstName' id="firstName" placeholder="Enter your first name">
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
