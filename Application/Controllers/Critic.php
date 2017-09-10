@@ -5,7 +5,7 @@ namespace Application\Controllers;
 use \Library\Core\Controller;
 use \Application\Models\Game as ModelGame;
 
-class Game extends Controller {
+class Critic extends Controller {
 
     private $mg;
 
@@ -34,7 +34,7 @@ class Game extends Controller {
                 $id_games = $this->mg->insert($this->mg->cleanData($_POST));
                 if ($id_games > 0) {
                     if ($this->mg->attributeGenre($id_games, $genres)) {
-                        header("location: " . LINK_WEB . "critic/create");
+                        header("location: " . LINK_WEB);
                         exit();
                     } else {
                         array_push($error, "An error occurs");

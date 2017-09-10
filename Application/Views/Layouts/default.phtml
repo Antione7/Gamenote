@@ -18,9 +18,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/' ? ' active': '' ?>">
+                            <a class="nav-link" href="/Gamenote/">Home</a>
+                        </li>
                         <?php if(!$helpers->isAuthenticated()) : ?>
-                        <li class="nav-item active">
+                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/user/register' ? ' active': '' ?>">
                             <a class="nav-link" href="/Gamenote/user/register">Register</a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if($helpers->isAuthenticated()) : ?>
+                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/create' ? ' active': '' ?>">
+                            <a class="nav-link" href="/Gamenote/game/create">New game</a>
+                        </li>
+                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/critic/create' ? ' active': '' ?>">
+                            <a class="nav-link" href="/Gamenote/critic/create">New critic</a>
                         </li>
                         <?php endif; ?>
                     </ul>
