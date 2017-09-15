@@ -3,55 +3,47 @@
 namespace Application\Controllers;
 
 use \Library\Core\Controller;
-use \Application\Models\Game as ModelGame;
+use \Application\Models\Critic as ModelCritic;
 
 class Critic extends Controller {
 
-    private $mg;
+    private $mc;
 
     public function __construct() {
         parent::__construct();
-        $this->mg = new ModelGame('localhost');
+        $this->mc = new ModelCritic('localhost');
     }
 
-    public function createAction() {
-        $error = $this->mg->getErrorData($_POST);
+    public function createAction($id) {
+        $error = array();
+        
+        if (!empty($_POST)) {
+            $id_users = $_SESSION['user']->id;
+            $c = count($_POST['criteria']);
+            for ($i = 0; $i < $c; $i++) {
+                $data['rating'] = intval($_POST['rating'][$i]);
+                $data['note'] = $_POST['note'][$i];
+                $data['id_users'] = $id_users;
+                $data['id_games'] = $id;
+                $data['id_criterias'] = $_POST['criteria'][$i];
+                $error = $this->mc->getErrorData($data);
 
-        if (!empty($_POST) && empty($error)) {
-            $genres;
-            foreach ($_POST['genre'] as $genre) {
-                if (!is_array($genre) && intval($genre) > 0) {
-                    $genres[] = intval($genre);
-                }
-            }
-            unset($_POST['genre']);
-            $_POST['id_platforms'] = is_array($_POST['id_platforms']) ? 0 : intval($_POST['id_platforms']);
-            if ($_POST['id_platforms'] === 0) {
-                array_push($error, "An error occurs");
-            }
-
-            if (empty($error)) {
-                $id_games = $this->mg->insert($this->mg->cleanData($_POST));
-                if ($id_games > 0) {
-                    if ($this->mg->attributeGenre($id_games, $genres)) {
+                if (empty($error)) {
+                    if ($this->mc->insert($data) === 1) {
                         header("location: " . LINK_WEB);
                         exit();
                     } else {
                         array_push($error, "An error occurs");
                     }
-                } else {
-                    array_push($error, "An error occurs");
                 }
             }
         }
 
-        $genres = $this->mg->getGenreList();
-        $platforms = $this->mg->getPlatformList();
+        $criterias = $this->mc->getCriteriaList();
 
         $this->setDataView(array(
             "errors" => $error,
-            "genres" => $genres,
-            "platforms" => $platforms
+            "criterias" => $criterias
         ));
     }
 

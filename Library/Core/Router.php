@@ -112,7 +112,7 @@ class Router {
                 array_splice($urlData, 0, 1);
             }
         }
-
+        
         call_user_func_array(array($iController, $action), $urlData);
         call_user_func_array(array($iController, 'renderView'), array($controller, $action));
 

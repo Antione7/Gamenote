@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>New game</h1>
+    <h1>New critic</h1>
     <hr />
     <?php foreach ($errors as $e) : ?>
         <div class="alert alert-danger">
@@ -8,33 +8,22 @@
     <?php endforeach; ?>
     <div class="row">
         <form method='post' class="col col-sm-6 offset-sm-3">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input value="<?= $helpers->foundInputValue('name') ?>" type="text" name="name" class="form-control" id="name"  placeholder="Enter the name" required>
-            </div>
-            <div class="form-group">
-                <label for="platform">Platform</label>
-                <select class="custom-select" name="id_platforms" required>
-                    <option selected>Open this select menu</option>
-                    <?php foreach ($platforms as $platform) :?>
-                    <option value="<?=$platform->id ?>"><?=$platform->name ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <label>Genre</label>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group form-check-inline">
-                        <?php foreach ($genres as $genre) :?>
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="genre[]" value="<?=$genre->id ?>" class="custom-control-input">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description"><?=$genre->name ?></span>
-                        </label>
-                        <?php endforeach; ?>
-                    </div>
+            <?php 
+            $c = count($criterias);
+            for($i = 0; $i < $c; $i++): ?>
+            <fieldset class="form-group">
+                <legend><?= ucfirst($criterias[$i]->name) ?></legend>
+                <input type="hidden" name="criteria[]" value="<?=$criterias[$i]->id ?>">
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <input value="<?= $helpers->foundInputValue('rating', null, $i) ?>" type="number" max="5" name="rating[]" class="form-control" id="rating"  placeholder="*/5" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="note">Note</label>
+                    <textarea class="form-control" id="note" name="note[]" rows="5"><?= $helpers->foundInputValue('note', null, $i) ?></textarea>
+                </div>
+            </fieldset>
+            <?php endfor; ?>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>

@@ -7,14 +7,14 @@ use \PDO;
 
 class Critic extends Model {
 
-    protected $table = 'games';
-    protected $primary = 'id';
+    protected $table = 'critics';
     protected $structure = array(
-        "name" => array(
-            "type" => "string"
+        "rating" => array(
+            "type" => "int",
+            "max" => 5
         ),
-        "id_platforms" => array(
-            "type" => "int"
+        "note" => array(
+            "type" => "string"
         )
     );
 
@@ -22,32 +22,10 @@ class Critic extends Model {
         parent::__construct($connexionName);
     }
 
-    public function attributeGenre(int $id_games, array $genres): bool {
-        $result;
-        foreach ($genres as $genre) {
-            $sql = $this->database->prepare("INSERT INTO genreattribution (`id_genre`,`id_games`) VALUES (:id_genre,:id_games)");
-            $sql->bindParam(':id_genre', $genre, PDO::PARAM_INT);
-            $sql->bindParam(':id_games', $id_games, PDO::PARAM_INT);
-            $result = $sql->execute();
-            if(!$result){
-                return false;
-            }
-        }
-        return $result;
-    }
-
-    public function getGenreList(): array {
-        $sql = $this->database->prepare("SELECT id, name FROM genre");
+    public function getCriteriaList(): array {
+        $sql = $this->database->prepare("SELECT id, name FROM criterias");
         $sql->execute();
 
         return $sql->fetchAll();
     }
-
-    public function getPlatformList(): array {
-        $sql = $this->database->prepare("SELECT id, name FROM platforms");
-        $sql->execute();
-
-        return $sql->fetchAll();
-    }
-
 }
