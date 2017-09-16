@@ -29,24 +29,34 @@ class Game extends Model {
             $sql->bindParam(':id_genre', $genre, PDO::PARAM_INT);
             $sql->bindParam(':id_games', $id_games, PDO::PARAM_INT);
             $result = $sql->execute();
-            if(!$result){
+            if (!$result) {
                 return false;
             }
         }
         return $result;
     }
 
-    public function getGenreList(): array {
+    public function getGenreList() {
         $sql = $this->database->prepare("SELECT id, name FROM genre");
         $sql->execute();
 
         return $sql->fetchAll();
     }
 
-    public function getPlatformList(): array {
+    public function getPlatformList() {
         $sql = $this->database->prepare("SELECT id, name FROM platforms");
         $sql->execute();
 
+        return $sql->fetchAll();
+    }
+
+    public function getCriticsByUserId() {
+        $sql = $this->database->prepare("SELECT id_games, g.name AS name FROM critics AS c
+LEFT JOIN games AS g ON g.id = c.id_games
+WHERE id_users = :id_users GROUP BY id_games");
+        
+        $sql->execute(array('id_users' => $_SESSION['user']->id));
+        
         return $sql->fetchAll();
     }
 

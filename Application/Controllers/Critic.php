@@ -24,6 +24,7 @@ class Critic extends Controller {
         if (!empty($_POST)) {
             $id_users = $_SESSION['user']->id;
             $c = count($_POST['criteria']);
+            $result = false;
             for ($i = 0; $i < $c; $i++) {
                 $data['rating'] = intval($_POST['rating'][$i]);
                 $data['note'] = $_POST['note'][$i];
@@ -34,12 +35,16 @@ class Critic extends Controller {
 
                 if (empty($error)) {
                     if ($this->mc->insert($data) === 1) {
-                        header("location: " . LINK_WEB);
-                        exit();
+                        $result = true;
                     } else {
                         array_push($error, "An error occurs");
                     }
                 }
+            }
+
+            if ($result) {
+                header("location: " . LINK_WEB);
+                exit();
             }
         }
 

@@ -13,6 +13,14 @@ class Game extends Controller {
         parent::__construct();
         $this->mg = new ModelGame('localhost');
     }
+    
+    public function indexAction(){
+        $games = $this->mg->getCriticsByUserId();
+
+        $this->setDataView(array(
+            "games" => $games
+        ));
+    }
 
     public function createAction() {
         $error = $this->mg->getErrorData($_POST);

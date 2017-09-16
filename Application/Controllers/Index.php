@@ -22,11 +22,15 @@ class Index extends Controller {
 
         if (!empty($_POST) && empty($error)) {
             $user = $this->mu->findForAuth($this->mu->cleanData($_POST));
-            if (password_verify($_POST['password'], $user->password)) {
-                unset($user->password);
-                $_SESSION['user'] = $user;
-                //header("location: ".LINK_WEB);
-                //exit();
+            if (!empty($user)) {
+                if (password_verify($_POST['password'], $user->password)) {
+                    unset($user->password);
+                    $_SESSION['user'] = $user;
+                    //header("location: ".LINK_WEB);
+                    //exit();
+                } else {
+                    array_push($error, "email or password not valid");
+                }
             } else {
                 array_push($error, "email or password not valid");
             }

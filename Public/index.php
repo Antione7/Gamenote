@@ -24,4 +24,3 @@
     ));
     $router::dispatchPage($_GET['p']);
 
-    var_dump($_SESSION);

@@ -22,7 +22,7 @@ class Critic extends Model {
         parent::__construct($connexionName);
     }
 
-    public function getCriteriaList(): array {
+    public function getCriteriaList() {
         $sql = $this->database->prepare("SELECT id, name FROM criterias");
         $sql->execute();
 

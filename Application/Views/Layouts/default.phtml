@@ -30,6 +30,9 @@
                         <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/create' ? ' active': '' ?>">
                             <a class="nav-link" href="<?=LINK_WEB ?>game/create">New game</a>
                         </li>
+                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/' ? ' active': '' ?>">
+                            <a class="nav-link" href="<?=LINK_WEB ?>game/">My critics</a>
+                        </li>
                         <?php endif; ?>
                     </ul>
                     <?php if(!$helpers->isAuthenticated()) : ?>
