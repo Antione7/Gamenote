@@ -30,7 +30,7 @@
                         <li class="nav-item <?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/create' ? 'active': '' ?>">
                             <a class="nav-link" href="<?=LINK_WEB ?>game/create">New game</a>
                         </li>
-                        <li class="nav-item <?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/' ? 'active': '' ?>">
+                        <li class="nav-item <?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/index/'.$_SESSION['user']->id ? 'active': '' ?>">
                             <a class="nav-link" href="<?=LINK_WEB ?>game/index/<?=$_SESSION['user']->id ?>">My critics</a>
                         </li>
                         <?php endif; ?>
