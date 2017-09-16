@@ -13,9 +13,13 @@ class Game extends Controller {
         parent::__construct();
         $this->mg = new ModelGame('localhost');
     }
-    
-    public function indexAction(){
-        $games = $this->mg->getCriticsByUserId();
+
+    public function indexAction($id_users = null) {
+        if (is_null($id_users) || empty($id_users)) {
+            header("location: " . LINK_WEB);
+            exit();
+        }
+        $games = $this->mg->getCriticsByUserId($id_users);
 
         $this->setDataView(array(
             "games" => $games

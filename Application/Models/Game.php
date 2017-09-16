@@ -50,12 +50,12 @@ class Game extends Model {
         return $sql->fetchAll();
     }
 
-    public function getCriticsByUserId() {
+    public function getCriticsByUserId($id_users) {
         $sql = $this->database->prepare("SELECT id_games, g.name AS name FROM critics AS c
 LEFT JOIN games AS g ON g.id = c.id_games
 WHERE id_users = :id_users GROUP BY id_games");
         
-        $sql->execute(array('id_users' => $_SESSION['user']->id));
+        $sql->execute(array('id_users' => $id_users));
         
         return $sql->fetchAll();
     }

@@ -13,9 +13,29 @@ class Critic extends Controller {
         parent::__construct();
         $this->mc = new ModelCritic('localhost');
     }
+    
+    public function indexAction($id_games = null, $id_criterias = null){
+        if (is_null($id_games) || empty($id_games)) {
+            header("location: " . LINK_WEB);
+            exit();
+        }
+        
+        $criterias = $this->mc->getCriteriaList();
+        if(is_null($id_criterias) || empty($id_criterias)){
+            $id_criterias = $criterias[0]->id;
+        }
+        $critics = $this->mc->getCriticList($id_games, $id_criterias);
+        
+        $this->setDataView(array(
+            "criterias" => $criterias,
+            "critics" => $critics,
+            "param1" => $id_games,
+            "param2" => $id_criterias
+        ));
+    }
 
     public function createAction($id = null) {
-        if (is_null($id) && empty($id)) {
+        if (is_null($id) || empty($id)) {
             header("location: " . LINK_WEB);
             exit();
         }
