@@ -14,9 +14,13 @@ class Critic extends Controller {
         $this->mc = new ModelCritic('localhost');
     }
 
-    public function createAction($id) {
+    public function createAction($id = null) {
+        if (is_null($id) && empty($id)) {
+            header("location: " . LINK_WEB);
+            exit();
+        }
         $error = array();
-        
+
         if (!empty($_POST)) {
             $id_users = $_SESSION['user']->id;
             $c = count($_POST['criteria']);
@@ -24,8 +28,8 @@ class Critic extends Controller {
                 $data['rating'] = intval($_POST['rating'][$i]);
                 $data['note'] = $_POST['note'][$i];
                 $data['id_users'] = $id_users;
-                $data['id_games'] = $id;
-                $data['id_criterias'] = $_POST['criteria'][$i];
+                $data['id_games'] = intval($id);
+                $data['id_criterias'] = intval($_POST['criteria'][$i]);
                 $error = $this->mc->getErrorData($data);
 
                 if (empty($error)) {

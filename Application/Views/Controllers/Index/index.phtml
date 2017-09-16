@@ -1,5 +1,25 @@
-<?php foreach ($errors as $e) : ?>
-    <div class="alert alert-danger">
-        <?= $e ?>
+<div class="container">
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?= $e ?>
+        </div>
+    <?php endforeach; ?>
+
+    <div class="row">
+        <?php foreach ($games as $game) : ?>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card card-outline-primary mb-3">
+                <img class="card-img-top" src="<?= DATA_WEB ?>img/game.svg" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title"><?=$game->name ?></h4>
+                    <p class="card-text">Rate: 5/5</p>
+                </div>
+                <div class="card-block">
+                    <a href="<?=LINK_WEB ?>critic/create/<?=$game->id ?>" class="card-link">Rate now!</a>
+                    <a href="#" class="card-link">Show notes</a>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
     </div>
-<?php endforeach; ?>
+</div>

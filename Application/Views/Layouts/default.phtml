@@ -19,24 +19,21 @@
                 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/' ? ' active': '' ?>">
-                            <a class="nav-link" href="/Gamenote/">Home</a>
+                            <a class="nav-link" href="<?=LINK_WEB ?>">Home</a>
                         </li>
                         <?php if(!$helpers->isAuthenticated()) : ?>
                         <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/user/register' ? ' active': '' ?>">
-                            <a class="nav-link" href="/Gamenote/user/register">Register</a>
+                            <a class="nav-link" href="<?=LINK_WEB ?>user/register">Register</a>
                         </li>
                         <?php endif; ?>
                         <?php if($helpers->isAuthenticated()) : ?>
                         <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/game/create' ? ' active': '' ?>">
-                            <a class="nav-link" href="/Gamenote/game/create">New game</a>
-                        </li>
-                        <li class="nav-item<?=$_SERVER['REQUEST_URI'] === '/Gamenote/critic/create' ? ' active': '' ?>">
-                            <a class="nav-link" href="/Gamenote/critic/create">New critic</a>
+                            <a class="nav-link" href="<?=LINK_WEB ?>game/create">New game</a>
                         </li>
                         <?php endif; ?>
                     </ul>
                     <?php if(!$helpers->isAuthenticated()) : ?>
-                    <form method="post" action="/Gamenote/" class="form-inline my-2 my-lg-0">
+                    <form method="post" action="<?=LINK_WEB ?>" class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="email" name="email" placeholder="email">
                         <input class="form-control mr-sm-2" type="password" name="password" placeholder="password">
                         <button class="btn btn-outline-success" type="submit">Sign in</button>
@@ -45,7 +42,7 @@
                     if($helpers->isAuthenticated()):?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="/Gamenote/user/logout">Sign out</a>
+                            <a class="nav-link text-danger" href="<?=LINK_WEB ?>user/logout">Sign out</a>
                         </li>
                     </ul>
                     <?php endif; ?>
