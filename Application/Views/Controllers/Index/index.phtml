@@ -4,7 +4,13 @@
             <?= $e ?>
         </div>
     <?php endforeach; ?>
-
+    <ul class="nav nav-tabs mb-3">
+        <?php foreach ($platforms as $platform) : ?>
+            <li class="nav-item">
+                <a class="nav-link <?= $id_platforms === $platform->id ? 'active' : '' ?>" href="<?= LINK_WEB ?>index/index/<?= $platform->id ?>"><?= $platform->name ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
     <div class="row">
         <?php foreach ($games as $game) : ?>
         <div class="col-12 col-sm-6 col-lg-3">

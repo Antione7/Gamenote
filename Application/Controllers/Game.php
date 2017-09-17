@@ -14,15 +14,23 @@ class Game extends Controller {
         $this->mg = new ModelGame('localhost');
     }
 
-    public function indexAction($id_users = null) {
+    public function indexAction($id_users = null, $id_platforms = null) {
         if (is_null($id_users) || empty($id_users)) {
             header("location: " . LINK_WEB);
             exit();
         }
-        $games = $this->mg->getCriticsByUserId($id_users);
+        $platforms = $this->mg->getPlatformList();
+        if(is_null($id_platforms) || empty($id_platforms)){
+            $id_platforms = $platforms[0]->id;
+        }
+        
+        $games = $this->mg->getCriticsByUserId($id_users, $id_platforms);
 
         $this->setDataView(array(
-            "games" => $games
+            "games" => $games,
+            "platforms" => $platforms,
+            "id_platforms" => $id_platforms,
+            "id_users" => $id_users
         ));
     }
 

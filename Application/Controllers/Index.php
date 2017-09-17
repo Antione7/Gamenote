@@ -17,7 +17,7 @@ class Index extends Controller {
         $this->mg = new ModelGame('localhost');
     }
 
-    public function indexAction() {
+    public function indexAction($id_platforms = null) {
         $error = $this->mu->getErrorData($_POST);
 
         if (!empty($_POST) && empty($error)) {
@@ -36,11 +36,17 @@ class Index extends Controller {
             }
         }
 
-        $games = $this->mg->fetchAll();
+        $platforms = $this->mg->getPlatformList();
+        if(is_null($id_platforms) || empty($id_platforms)){
+            $id_platforms = $platforms[0]->id;
+        }
+        $games = $this->mg->fetchAll("id_platforms = $id_platforms");
 
         $this->setDataView(array(
             "errors" => $error,
-            "games" => $games
+            "games" => $games,
+            "platforms" => $platforms,
+            "id_platforms" => $id_platforms
         ));
     }
 

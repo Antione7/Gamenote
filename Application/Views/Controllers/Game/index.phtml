@@ -1,4 +1,11 @@
 <div class="container">
+    <ul class="nav nav-tabs mb-3">
+        <?php foreach ($platforms as $platform) : ?>
+            <li class="nav-item">
+                <a class="nav-link <?= $id_platforms === $platform->id ? 'active' : '' ?>" href="<?= LINK_WEB ?>game/index/<?=$id_users ?>/<?= $platform->id ?>"><?= $platform->name ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
     <div class="row">
         <?php foreach ($games as $game) : ?>
         <div class="col-12 col-sm-6 col-lg-3">
@@ -10,6 +17,7 @@
                 </div>
                 <div class="card-block">
                     <a href="<?=LINK_WEB ?>critic/update/<?=$game->id_games ?>" class="card-link">Update</a>
+                    <a href="<?=LINK_WEB ?>critic/index/<?=$game->id_games ?>" class="card-link">Show critics</a>
                 </div>
             </div>
         </div>
