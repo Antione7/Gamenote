@@ -11,7 +11,8 @@ class Critic extends Model {
     protected $structure = array(
         "rating" => array(
             "type" => "int",
-            "max" => 5
+            "max" => 5,
+            "min" => 0
         ),
         "note" => array(
             "type" => "string"

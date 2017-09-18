@@ -23,4 +23,3 @@
         "critic/create"
     ));
     $router::dispatchPage($_GET['p']);
-

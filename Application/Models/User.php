@@ -36,7 +36,7 @@ class User extends Model {
     }
 
     public function findForAuth($data) {
-        $sql = $this->database->prepare("SELECT `id`, `email`, `updated`, `password` FROM `{$this->table}` WHERE `email`=:email");
+        $sql = $this->database->prepare("SELECT * FROM `{$this->table}` WHERE `email`=:email");
         $sql->bindParam(':email', $data['email'], PDO::PARAM_STR);
         $sql->execute();
         $result = $sql->fetchAll();

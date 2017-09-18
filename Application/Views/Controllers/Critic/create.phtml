@@ -16,7 +16,7 @@
                 <input type="hidden" name="criteria[]" value="<?=$criterias[$i]->id ?>">
                 <div class="form-group">
                     <label for="rating">Rating</label>
-                    <input value="<?= $helpers->foundInputValue('rating', null, $i) ?>" type="number" max="5" name="rating[]" class="form-control" id="rating"  placeholder="*/5" required>
+                    <input value="<?= $helpers->foundInputValue('rating', null, $i) ?>" type="number" min="0" max="5" name="rating[]" class="form-control" id="rating"  placeholder="*/5" required>
                 </div>
                 <div class="form-group">
                     <label for="note">Note</label>
