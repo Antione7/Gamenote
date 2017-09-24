@@ -8,7 +8,7 @@ use \PDO;
 class Game extends Model {
 
     protected $table = 'games';
-    protected $primary = 'id';
+    protected $primary = ['id'];
     protected $structure = array(
         "name" => array(
             "type" => "string"

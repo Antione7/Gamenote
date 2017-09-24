@@ -85,7 +85,9 @@ class Router {
 
 
     public static function dispatchPage($url){
-        $urlData    = explode('/', $url);
+        $url= str_replace("\\",DIRECTORY_SEPARATOR,$url);
+        $url= str_replace("/",DIRECTORY_SEPARATOR,$url);
+        $urlData    = explode(DS, $url);
         $controller = self::getControllerName('index');
         $action     = self::getActionName('index');
 

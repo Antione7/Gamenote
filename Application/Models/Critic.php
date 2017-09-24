@@ -8,6 +8,7 @@ use \PDO;
 class Critic extends Model {
 
     protected $table = 'critics';
+    protected $primary = [ 'id_users', 'id_games', 'id_criterias' ];
     protected $structure = array(
         "rating" => array(
             "type" => "int",
@@ -38,6 +39,19 @@ class Critic extends Model {
         $sql->execute(array(
             "id_games" => $id_games,
             "id_criterias" => $id_criterias
+        ));
+
+        return $sql->fetchAll();
+    }
+
+    public function getCritic($id_games, $id_users){
+        $sql = $this->database->prepare("SELECT rating, note, cr.name AS criteria, cr.id AS id_criterias FROM critics AS c "
+                . "LEFT JOIN criterias AS cr ON c.id_criterias = cr.id "
+                . "WHERE id_games = :id_games AND id_users = :id_users");
+        
+        $sql->execute(array(
+            "id_games" => $id_games,
+            "id_users" => $id_users
         ));
 
         return $sql->fetchAll();

@@ -16,13 +16,18 @@ abstract class Controller extends GeneriqueControl {
 
     protected function setLayout($name) {
         $pathLayout = APP_ROOT . "Views\Layouts\{$name}.phtml";
+        $pathLayout= str_replace("\\",DIRECTORY_SEPARATOR,$pathLayout);
+        $pathLayout= str_replace("/",DIRECTORY_SEPARATOR,$pathLayout);
         if(!empty($name) && file_exists($pathLayout)){
             $this->layout = $name;
         }
     }
 
     protected function getLayoutPath(){
-        return APP_ROOT . "Views\Layouts\\" . $this->layout . ".phtml";
+        $pathLayout = APP_ROOT . "Views\Layouts\\" . $this->layout . ".phtml";
+        $pathLayout= str_replace("\\",DIRECTORY_SEPARATOR,$pathLayout);
+        $pathLayout= str_replace("/",DIRECTORY_SEPARATOR,$pathLayout);
+        return $pathLayout;
     }
 
 
@@ -61,6 +66,8 @@ abstract class Controller extends GeneriqueControl {
         header("Content-type: " . $this->getResponseHeader() . "; charset=utf-8");
 
         $pathView   = APP_ROOT . str_replace('\Application', 'Views', $controllerName) . DS . str_replace('Action', '', $actionName) . '.phtml';
+        $pathView= str_replace("\\",DIRECTORY_SEPARATOR,$pathView);
+        $pathView= str_replace("/",DIRECTORY_SEPARATOR,$pathView);
         $helpers    = new Helpers();
 
         ob_start();

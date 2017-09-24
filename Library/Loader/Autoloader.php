@@ -31,6 +31,8 @@ class Autoloader {
     protected static function autoload($className){
 
         $path = self::$basePath . $className . '.php';
+        $path= str_replace("\\",DIRECTORY_SEPARATOR,$path);
+        $path= str_replace("/",DIRECTORY_SEPARATOR,$path);
 
         if(!file_exists($path)){
             throw new \Exception("Error namespace file not found : '$path'");

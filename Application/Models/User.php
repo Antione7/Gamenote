@@ -8,7 +8,7 @@ use \PDO;
 class User extends Model {
 
     protected $table = 'users';
-    protected $primary = 'id';
+    protected $primary = ['id'];
     protected $structure = array(
         "email" => array(
             "type" => "email"

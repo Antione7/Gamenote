@@ -9,7 +9,7 @@ abstract class Model {
     protected $primary;
     protected $structure;
 
-    public function getPrimaryName() {
+    public function getPrimary() {
         return $this->primary;
     }
 
@@ -22,7 +22,7 @@ abstract class Model {
         $tmpData = $data;
 
         foreach ($data as $key => $value) {
-            if ($key === $this->primary) {
+            if (in_array(key,$this->primary)) {
                 continue;
             }
             if (!array_key_exists($key, $this->structure)) {
@@ -78,9 +78,22 @@ abstract class Model {
         return $sql->fetchAll();
     }
 
-    public function findByPrimary($valuePrimary, $fields = '*') {
-        $sql = $this->database->prepare("SELECT {$fields} FROM `{$this->table}` WHERE `{$this->primary}`=:value");
-        $sql->execute(array('value' => $valuePrimary));
+    public function findByPrimary($primaryList, $fields = '*') {
+        $query = "SELECT {$fields} FROM `{$this->table}` WHERE ";
+
+        $c = count($this->primary);
+        for($i = 0; $i < $c; $i++){
+            if(!array_key_exists($this->primary[$i],$primaryList)){
+                continue;
+            }
+            if($i > 0){
+                $query .= ' AND ';
+            }
+
+            $query .= "`{$this->primary[$i]}`=:{$this->primary[$i]}";
+        }
+        $sql = $this->database->prepare($query);
+        $sql->execute($primaryList);
         return $sql->fetchAll();
     }
 
@@ -113,19 +126,43 @@ abstract class Model {
         // `field1`=:field1,`field2`=:field2,`field3`=:field3,
         $listFieldsValues = "";
         foreach ($data as $key => $value) {
-            if ($key !== $this->primary) {
+            if (!in_array($key,$this->primary)) {
                 $listFieldsValues .= "`$key`=:$key,";
             }
         }
         $listFieldsValues = substr($listFieldsValues, 0, -1);
+        $query = "UPDATE `{$this->table}` SET {$listFieldsValues} WHERE ";
+        $c = count($this->primary);
+        for($i = 0; $i < $c; $i++){
+            if(!array_key_exists($this->primary[$i],$primaryList)){
+                continue;
+            }
+            if($i > 0){
+                $query .= ' AND ';
+            }
 
-        $sql = $this->database->prepare("UPDATE `{$this->table}` SET {$listFieldsValues} WHERE `{$this->primary}`=:{$this->primary}");
+            $query .= "`{$this->primary[$i]}`=:{$this->primary[$i]}";
+        }
+        $sql = $this->database->prepare($query);
         return $sql->execute($data);
     }
 
-    public function deleteByPrimary($valuePrimary) {
-        $sql = $this->database->prepare("DELETE FROM `{$this->table}` WHERE `{$this->primary}`=:value");
-        return $sql->execute(array('value' => $valuePrimary));
+    public function deleteByPrimary($primaryList) {
+        $query = "DELETE FROM `{$this->table}` WHERE ";
+        $c = count($this->primary);
+        for($i = 0; $i < $c; $i++){
+            if(!array_key_exists($this->primary[$i],$primaryList)){
+                continue;
+            }
+            if($i > 0){
+                $query .= ' AND ';
+            }
+
+            $query .= "`{$this->primary[$i]}`=:{$this->primary[$i]}";
+        }
+        
+        $sql = $this->database->prepare($query);
+        return $sql->execute($primaryList);
     }
 
 }

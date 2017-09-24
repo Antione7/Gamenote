@@ -15,10 +15,11 @@
                     <h4 class="card-title"><?=$game->name ?></h4>
                     <p class="card-text">Rate: 5/5</p>
                 </div>
-                <div class="card-block">
-                    <a href="<?=LINK_WEB ?>critic/update/<?=$game->id_games ?>" class="card-link">Update</a>
-                    <a href="<?=LINK_WEB ?>critic/index/<?=$game->id_games ?>" class="card-link">Show critics</a>
-                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="<?=LINK_WEB ?>critic/update/<?=$game->id_games ?>" class="card-link">Update</a></li>
+                    <li class="list-group-item"><a href="<?=LINK_WEB ?>critic/index/<?=$game->id_games ?>" class="card-link">Show critics</a></li>
+                    <li class="list-group-item"><a href="<?=LINK_WEB ?>critic/delete/<?=$game->id_games ?>" class="card-link">Delete</a></li>
+                </ul>
             </div>
         </div>
         <?php endforeach; ?>
